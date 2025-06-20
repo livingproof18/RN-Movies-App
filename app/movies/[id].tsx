@@ -71,6 +71,13 @@ const MovieDetails = () => {
                     <MovieInfo label='Status' value={movie?.status} />
                     <MovieInfo label='Language' value={movie?.original_language} />
 
+                    <TouchableOpacity
+                        className=' bg-accent w-12 h-12 rounded-full items-center justify-center'
+                        onPress={() => console.log('Add to Watchlist')}
+                    >
+                        <Text className='text-white text-2xl font-bold'>Watch Movie</Text>
+                    </TouchableOpacity>
+
 
                 </View>
 
