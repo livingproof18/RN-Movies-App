@@ -6,11 +6,10 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 interface SavedCardProps {
     movie: Movie;
     index: number;
-    setSavedMovies?: (movies: Movie[]) => void; // Optional prop to update saved movies
-    savedMovies?: Movie[]; // Optional prop to access saved movies
+    onRemove?: (id: number) => void;
 }
 
-const SavedCard = ({ movie, index, setSavedMovies, savedMovies }: SavedCardProps) => {
+const SavedCard = ({ movie, index, onRemove }: SavedCardProps) => {
     const { id, poster_path, title, vote_average, release_date } = movie;
 
     console.log('SavedCard', id, poster_path, title, vote_average, release_date)
@@ -20,13 +19,9 @@ const SavedCard = ({ movie, index, setSavedMovies, savedMovies }: SavedCardProps
         console.log('Movie ID:', id);
         console.log('Movie Title:', title);
 
-        console.log('Saved Movies:', savedMovies);
 
-        const updatedMovies = savedMovies?.filter(movie => movie.id !== id) || [];
-        console.log('Updated Movies:', updatedMovies);
-        if (setSavedMovies) {
-            setSavedMovies(updatedMovies);
-        }
+        if (onRemove) onRemove(id);
+
         // Here you can handle the logic for removing the movie from saved movies
         // For example, you might want to update the state or make an API call to remove it from a database.
         Alert.alert('Movie Removed', `${title} has been removed from your saved movies.`);

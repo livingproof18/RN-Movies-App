@@ -1,5 +1,6 @@
+import { router } from 'expo-router'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 
 const profile = () => {
     return (
@@ -12,7 +13,14 @@ const profile = () => {
                 <Text className='text-white text-2xl font-bold'>Profile</Text>
                 <Text className='text-gray-300 text-sm'>This is a placeholder profile page.</Text>
 
-                <Text className='text-gray-300 text-sm'>View Saved Movies.</Text>
+                <Text onPress={() => router.push('/saved')} className='text-gray-300 text-lg border bg-slate-800 p-4 rounded-xl'>View Saved Movies.</Text>
+
+                <Button
+                    title='Return Home'
+                    onPress={() => router.push('/')}
+                    color='#1E90FF'
+                />
+
             </View>
 
         </View>

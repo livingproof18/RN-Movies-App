@@ -1,8 +1,9 @@
 import { fetchMovieDetails } from '@/services/api';
 import useFetch from '@/services/useFetch';
 import { router, useLocalSearchParams } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 type MovieInfoProps = {
     label: string;
@@ -72,12 +73,35 @@ const MovieDetails = () => {
                     <MovieInfo label='Language' value={movie?.original_language} />
 
                     <TouchableOpacity
-                        className=' bg-accent w-12 h-12 rounded-full items-center justify-center'
-                        onPress={() => console.log('Add to Watchlist')}
+                        className=' bg-sky-700 w-32 h-12 rounded-full items-center justify-center mt-6'
+                        onPress={() => {
+                            const url = `https://www.themoviedb.org/movie/${movie?.id}`;
+                            Linking.openURL(url).catch(err =>
+                                console.error("Failed to open URL:", err)
+                            );
+                        }}
                     >
-                        <Text className='text-white text-2xl font-bold'>Watch Movie</Text>
+                        <Text className='text-white text-base font-bold'>Watch Movie</Text>
                     </TouchableOpacity>
 
+                    <TouchableOpacity
+                        className='bg-red-700 w-32 h-12 rounded-full items-center justify-center mt-6'
+                        onPress={async () => {
+                            const url = `https://www.themoviedb.org/movie/${movie?.id}`;
+                            try {
+                                // await WebBrowser.openBrowserAsync(url);
+                                await WebBrowser.openBrowserAsync(url, {
+                                    controlsColor: '#ff0000',
+                                    toolbarColor: '#1f2937',
+                                });
+
+                            } catch (err) {
+                                console.error('Failed to open in-app browser:', err);
+                            }
+                        }}
+                    >
+                        <Text className='text-white text-base font-bold'>Watch Movie In</Text>
+                    </TouchableOpacity>
 
                 </View>
 
@@ -90,6 +114,8 @@ const MovieDetails = () => {
             >
                 <Text className='text-white text-2xl font-bold'>←</Text>
             </TouchableOpacity>
+
+
 
 
         </View>

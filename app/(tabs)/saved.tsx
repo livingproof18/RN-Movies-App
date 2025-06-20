@@ -27,6 +27,12 @@ const saved = () => {
 
     console.log("Saved Movies:", savedMovies);
 
+    // In parent
+    const handleRemoveMovie = (id: number) => {
+        setSavedMovies((prev) => prev.filter(movie => movie.id !== id));
+    };
+
+
 
     return (
         <View className='flex-1 bg-primary px-5'>
@@ -61,8 +67,7 @@ const saved = () => {
                                     <SavedCard
                                         movie={item}
                                         index={index}
-                                        setSavedMovies={setSavedMovies}
-                                        savedMovies={savedMovies}
+                                        onRemove={handleRemoveMovie}
                                     />
                                 </View>
                             )}
